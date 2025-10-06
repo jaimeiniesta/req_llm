@@ -626,6 +626,18 @@ defmodule ReqLLM.Providers.Google do
     }
   end
 
+  defp convert_content_part(%{type: "image", data: data, media_type: media_type})
+       when is_binary(data) do
+    encoded_data = Base.encode64(data)
+
+    %{
+      inline_data: %{
+        mime_type: media_type,
+        data: encoded_data
+      }
+    }
+  end
+
   # TODO: Add support for images, audio, video when multimodal support is added
   defp convert_content_part(part), do: %{text: to_string(part)}
 

@@ -555,6 +555,14 @@ defmodule ReqLLM.Provider.Defaults do
   end
 
   defp encode_openai_content_part(%ReqLLM.Message.ContentPart{
+         type: :image,
+         data: data,
+         media_type: media_type
+       }) do
+    %{type: "image", data: data, media_type: media_type}
+  end
+
+  defp encode_openai_content_part(%ReqLLM.Message.ContentPart{
          type: :tool_call,
          tool_name: name,
          input: input,
